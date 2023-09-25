@@ -1,4 +1,50 @@
-# OEE Metrics
+# Intro
+## Raw Data
+
+Most of the machine will expose certain raw data, which can be used along with other sets of data to find the KPIs. The raw data available/required are:
+
+1. Operating Mode:
+    This refers to the mode of operation in the cnc machine, for example, `MEM` is memory mode, in this CNC system runs programs stored in its memory. This mode is also known as the automatic mode, where the CNC machine loads the entire G Code file into its memory and executes it automatically, without any manual intervention. In this mode, the machine follows the instructions provided in the G Code file from start to finish. The entire code is executed sequentially, allowing for a fully automated operation. The machine takes care of executing each command in the G Code file without requiring any further input or interaction from the operator.
+
+    In the execution of this project, finding out when the machine is in `MEM` mode is crucial, as this denotes the fact the production of a part has started (anything operation that isdone in other mode such as say `Edit` mode will usually be considered as non productive time, hence will contribute to prouction loss).
+
+2. Program Status:
+    This refers to the status of the program that is loaded in memory (if nothing is loaded, then a default value such as 0 might be returned). For example a number of 3 from the machine might denote that the program is started and a value of 1 might mean the program got over. In most of the cases in the machine, we might have to do some trail experiments to see what those numbers represent.
+
+3. Machine Status:
+    This refers to the staus of machine, which could (mostly) take one of the values: `PRODUCTION`, `IDLE`, `OFF`, or something similar to that. This parameter could sometime be retrieved as raw data, or it might be takes as a derived information from the operating mode and program status. This data is important to understand how much the machine was utilized.
+
+4. Program Name:
+    This represents the program name that is being currently executed by the machine. This is an important information to find details such as idle cycle time for a given program, which in turn will be used to find the performace and oee metrics.
+
+## OEE Metrics2
+
+The final KPI that we need to show are listed below:
+
+1. Availability
+    - For current shift
+    - For current day
+    - For cumulative (since the beginning of the project)
+2. Performance
+    - For current shift
+    - For current day
+    - For cumulative
+3. Quality
+    - For current shift
+    - For current day
+    - For cumulative
+4. OEE
+    - For current shift
+    - For current day
+    - For cumulative 
+
+### Calculations
+
+In this section we will show how to calculate all the above KPIs.
+
+
+
+## OEE Metrics
 
 Since there is not much production going in CMTI, and due to lack of systematic method for manufacturing, we're are using a different approach to calculate the KPIs, which will not reflect the actual performance of the plant and machine, but for the sake of demonstration we have to do this.
 
@@ -14,7 +60,6 @@ Machine Production Timeline:
 
 
 \* Sometime the duration column in the above table will not be exactly equal to the difference between end and start time columns, reason is, the machine could have been stopped in the middle of production for minor adjustments, which could be seen in the machine status timeline table.
-
 
 
 Part Status Desctiption Table:
