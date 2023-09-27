@@ -12,7 +12,11 @@ Most of the machine will expose certain raw data, which can be used along with o
     This refers to the status of the program that is loaded in memory (if nothing is loaded, then a default value such as 0 might be returned). For example a number of 3 from the machine might denote that the program is started and a value of 1 might mean the program got over. In most of the cases in the machine, we might have to do some trail experiments to see what those numbers represent.
 
 3. Machine Status:
-    This refers to the staus of machine, which could (mostly) take one of the values: `PRODUCTION`, `IDLE`, `OFF`, or something similar to that. This parameter could sometime be retrieved as raw data, or it might be takes as a derived information from the operating mode and program status. This data is important to understand how much the machine was utilized.
+    This refers to the staus of machine, which could (mostly) take one of the values: `PRODUCTION`, `IDLE`, `OFF`, or something similar to that. This parameter could sometime be retrieved as raw data, or it might be takes as a derived information from the operating mode and program status. This data is important to understand how much the machine was utilized. When this information is not available directly when get it as follows: 
+
+        1. If operating mode is ``auto`` && program status is ``start`` (or anything similar) then the machine is in ``PRODUCTION``
+        2. If any other combination if operation mode and program status then the machine is in ``IDLE`` status.
+        3. If no data is coming the machine is in ``OFF`` status. 
 
 4. Program Name:
     This represents the program name that is being currently executed by the machine. This is an important information to find details such as idle cycle time for a given program, which in turn will be used to find the performace and oee metrics.
@@ -37,6 +41,101 @@ The final KPI that we need to show are listed below:
     - For current shift
     - For current day
     - For cumulative 
+
+### Calculations 2
+
+In this section we will show how to calculate all the above KPIs.
+
+1. Availablity: 
+
+The formula for availability is given by:
+
+$$
+\text{Availability} = \frac{\text{Actual Production Time}}{\text{Planned Production Time}}
+$$
+
+
+#### CASE 1 (Machine state change from production to idle)
+
+Let's say the machine has changed its state from production to idle just now, we need to have the following data
+
+Start time of (previous) production cycle : 31-05-2023T11:15:03 
+
+End time of production cycle (just now) : 31-05-2023T11:19:22
+
+1. Find the planned production time for the given duration:
+    
+    1. We can see that from the planned event timeline, the production start and end datetime falls under prodution (full time), hence the planned production time for the given query time duration is the query time duration itself (which is 31-05-2023T11:19:22 - 31-05-2023T11:15:03 = 289 s). (Usually the production will be done in planned production time, hence by default it will be equal to the difference between end and start time, we can hopefully skip the part where we have to check if the production was done during any of the planned production time).
+
+    $$
+    \text{Planned Production Time} = \text{289}
+    $$
+
+2. Find the Actual Production Time:
+
+    The actual production time is same as the difference between the end and start time.
+
+    $$
+    \text{Actual Production Time} = \text{289}
+    $$
+
+3. Find Availability:
+    
+    1. By substituting in the previous formula we can find the value
+
+    $$
+    \text{Availability} = \frac{\text{289}}{\text{289}}
+    $$
+
+    $$
+    \text{Availability} = {\text{1}}
+    $$
+
+    $$
+    \text{Availability \%} = {\text{100 \%}}
+    $$
+
+
+#### CASE  (Machine state change from idle to production)
+
+Let's say the machine has changed its state from production to idle just now, we need to have the following data
+
+Start time of (previous) production cycle : 31-05-2023T11:15:03 
+
+End time of production cycle (just now) : 31-05-2023T11:19:22
+
+1. Find the planned production time for the given duration:
+    
+    1. We can see that from the planned event timeline, the production start and end datetime falls under prodution (full time), hence the planned production time for the given query time duration is the query time duration itself (which is 31-05-2023T11:19:22 - 31-05-2023T11:15:03 = 289 s). (Usually the production will be done in planned production time, hence by default it will be equal to the difference between end and start time, we can hopefully skip the part where we have to check if the production was done during any of the planned production time).
+
+    $$
+    \text{Planned Production Time} = \text{289}
+    $$
+
+2. Find the Actual Production Time:
+
+    The actual production time is same as the difference between the end and start time.
+
+    $$
+    \text{Actual Production Time} = \text{289}
+    $$
+
+3. Find Availability:
+    
+    1. By substituting in the previous formula we can find the value
+
+    $$
+    \text{Availability} = \frac{\text{289}}{\text{289}}
+    $$
+
+    $$
+    \text{Availability} = {\text{1}}
+    $$
+
+    $$
+    \text{Availability \%} = {\text{100 \%}}
+    $$
+
 
 ### Calculations
 
