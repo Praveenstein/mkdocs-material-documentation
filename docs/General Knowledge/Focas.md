@@ -163,6 +163,53 @@ The following figure shows how to add the library file in visual studio
 
 Adding the `fwlib.cs` library file to your Visual Studio project is necessary to include the library's code in your project. By doing so, the compiler recognizes the library and its contents, enabling you to utilize its functionality in your code.
 
+## Special Notes for FOCAS API:
+
+### Adding the `fw*.dll` files
+
+DLL stands for Dynamic Link Library. It is a type of file that contains code and data that can be used by multiple programs at the same time. DLL files are often used to provide common functionality, such as printing, graphics display, and network communication.
+
+DLL files are loaded into memory when a program needs them, and they are unloaded when the program is finished. This allows multiple programs to share the same DLL files without having to duplicate them in memory. This can save disk space and improve performance.
+
+DLL files are essential for the operation of many Windows programs. However, they can sometimes cause problems, such as missing DLL errors. These errors can occur when a DLL file is corrupted or missing, or when a program is trying to use a DLL file that is not compatible with it.
+
+Here are some examples of DLL files:
+
+- Comdlg32.dll: This DLL file provides common dialog box related functions, such as Open, Save, and Print dialog boxes.
+
+- User32.dll: This DLL file provides functions for interacting with the Windows user interface, such as creating and managing windows, displaying messages, and handling user input.
+
+- Gdi32.dll: This DLL file provides functions for graphics display, such as drawing shapes, text, and images.
+
+- Ws2_32.dll: This DLL file provides functions for network communication, such as sending and receiving data over the Internet.
+
+The functions for communicating with the fanuc based machines using focas is possible through the focas library, developed in c/c++ by fanuc. In our current program we are using a c sharp program which will act as a wrapper to the c/c++ library given by fanuc. In order to do this we have to follow two steps:
+
+- Including all dll files in `C:\Windows\SysWOW64` folder.
+
+- Including the `fwlib.cs` file as shown previously.
+
+
+### Steps
+
+1. Download all the dll files from the following link: [Fanuc Focas Dll Files](https://github.com/strangesast/fwlib)
+
+2. Include all dll files in `C:\Windows\SysWOW64` folder (as shown in figure below).
+
+The following figure shows the dll files added to the SysWOW64 folder:
+
+![Adding dll files](../../../images/dll_files.png){ align=center }
+
+
+### Creation of .Net Framework Application
+
+Make sure that when you create a new project in visual studio you open a console application of type `.NetFramework` , if in case you choose .Net core you wont be able to see the.Net 4.7.2 framework (as the focas library is currently not working in core or other newer versions).
+
+
+The following figure shows creation of console application:
+
+![Adding dll files](../../../images/application_creation.png){ align=center }
+
 
 ## Programs to Demonstrate Focas API
 

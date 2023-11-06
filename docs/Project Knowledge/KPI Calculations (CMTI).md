@@ -98,11 +98,11 @@ End time of production cycle (just now) : 31-05-2023T11:19:22
 
 #### CASE  (Machine state change from idle to production)
 
-Let's say the machine has changed its state from production to idle just now, we need to have the following data
+Let's say the machine has changed its state from idle to production just now, we need to have the following data
 
-Start time of (previous) production cycle : 31-05-2023T11:15:03 
+Start time of idle time : 31-05-2023T11:15:03 
 
-End time of production cycle (just now) : 31-05-2023T11:19:22
+End time of idle (just now) : 31-05-2023T11:19:22
 
 1. Find the planned production time for the given duration:
     
